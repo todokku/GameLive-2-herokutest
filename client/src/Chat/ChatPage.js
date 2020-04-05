@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Grid } from 'semantic-ui-react';
 import MessagesContainer from './MessagesContainer';
 import InputContainer from './InputContainer';
 import './ChatPage.css';
@@ -39,26 +38,26 @@ class ChatPage extends Component {
 
     render() {
         return(
-            <Grid>
+            <div>
                 
-                <Grid.Column width={4} />
+                <div width={4} />
 
-                <Grid.Column width={8}>
-                    <Grid.Row className="messages-container">
+                <div width={8}>
+                    <div className="messages-container">
                         {this.state.messages.length > 0 ?
                         <MessagesContainer messages={this.state.messages}/>
                         :
                         <div />
                         }
-                    </Grid.Row>
-                    <Grid.Row>
+                    </div>
+                    <div>
                         <InputContainer handleSubmit={this.handleSubmit}/>
-                    </Grid.Row>
-                </Grid.Column>
+                    </div>
+                </div>
 
-                <Grid.Column width={4} />
+                <div width={4} />
 
-            </Grid>
+            </div>
         );
     }
 
