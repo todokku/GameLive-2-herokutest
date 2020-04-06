@@ -41,6 +41,18 @@ app.get('/api/room', (req, res) => {
 
 // POST a new message
 app.post('/api/room', (req, res) => {
+    db.Room.findOne({
+        host: req.body.player
+    }).then(function(dbRoom){
+        if(!dbRoom){
+            createRoom(req, res)
+        } else {
+            console.log("already room")
+        }
+    })
+});
+
+function createRoom(req, res){
     var roomCode = '';
     var characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
@@ -49,14 +61,15 @@ app.post('/api/room', (req, res) => {
     }
     db.Room.create({
         code: roomCode,
-        players: [req.body.player]
+        players: [req.body.player],
+        host: req.body.player
     }).then((room) => {
         res.send(room).status(200);
     }).catch((err) => {
         console.log(err);
         res.send(err).status(500);
     });
-});
+}
 
 if(process.env.NODE_ENV === "production") {
     app.use(express.static("./client/build"));

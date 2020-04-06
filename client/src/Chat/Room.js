@@ -16,6 +16,7 @@ class Room extends Component {
                                 )
                             })}
                             <div>{room.code}</div>
+                            <button onClick={this.props.Join} value={room.code}>Join</button>
                         </div>
                     );
                 })}

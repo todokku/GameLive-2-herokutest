@@ -73,6 +73,10 @@ class ChatPage extends Component {
         }
     }
 
+    lolo = event => {
+        alert(event.target.value)
+    }
+
     render() {
         return(
             <div>
@@ -96,7 +100,7 @@ class ChatPage extends Component {
                 </Modal>
                     <div>
                         {this.state.rooms.length > 0 ?
-                        <Room rooms={this.state.rooms}/>
+                        <Room rooms={this.state.rooms} Join={this.lolo}/>
                         :
                         <div />
                         }
@@ -107,23 +111,27 @@ class ChatPage extends Component {
 
     handleSubmit = () => {
         let token = localStorage.getItem("username")
-        let reqBody = {
-            player: token
-        }
+        if(!token){
+            window.location.reload()
+        } else {
+            let reqBody = {
+                player: token
+            }
 
-        fetch("/api/room", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(reqBody)
-        }).then((res) => {
-            return res.json();
-        }).then((resJson) => {
-            this.state.socket.emit("new-room", resJson);
-        }).catch((err) => {
-            console.log(err);
-        });
+            fetch("/api/room", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(reqBody)
+            }).then((res) => {
+                return res.json();
+            }).then((resJson) => {
+                this.state.socket.emit("new-room", resJson);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
     }
 
 }
