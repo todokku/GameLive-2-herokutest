@@ -10,7 +10,6 @@ class MessagesContainer extends Component {
                     return (
                         <div key={"c" + index}>
                             <div as="b">{message.sender}</div>
-                            <div>{message.content}</div>
                         </div>
                     );
                 })}

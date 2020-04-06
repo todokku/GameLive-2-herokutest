@@ -10,7 +10,7 @@ class ChatPage extends Component {
         super(props);
         this.state = {
             messages: [],
-            socket: openSocket("https://project-gamelive.herokuapp.com/")
+            socket: openSocket("http://localhost:8080/")
         };
 
         this.state.socket.on("new-message", (message) => {
@@ -40,9 +40,9 @@ class ChatPage extends Component {
         return(
             <div>
                 
-                <div width={4} />
+               
 
-                <div width={8}>
+                <div>
                     <div className="messages-container">
                         {this.state.messages.length > 0 ?
                         <MessagesContainer messages={this.state.messages}/>
@@ -55,17 +55,14 @@ class ChatPage extends Component {
                     </div>
                 </div>
 
-                <div width={4} />
-
             </div>
         );
     }
 
-    handleSubmit = (sender, content) => {
+    handleSubmit = () => {
 
         let reqBody = {
-            sender: sender,
-            content: content
+            sender: "o si"
         }
 
         fetch("/api/message", {
