@@ -3,6 +3,19 @@ import Room from './Room';
 import Nav from './Nav';
 import './ChatPage.css';
 import openSocket from 'socket.io-client';
+import Modal from 'react-modal';
+
+
+const customStyles = {
+    content : {
+      top                   : '50%',
+      left                  : '50%',
+      right                 : 'auto',
+      bottom                : 'auto',
+      marginRight           : '-50%',
+      transform             : 'translate(-50%, -50%)'
+    }
+};
 
 class ChatPage extends Component {
 
@@ -10,7 +23,9 @@ class ChatPage extends Component {
         super(props);
         this.state = {
             rooms: [],
-            socket: openSocket("https://project-gamelive.herokuapp.com/")
+            socket: openSocket("https://project-gamelive.herokuapp.com/"),
+            popo: false,
+            username: ""
         };
 
         this.state.socket.on("new-room", (room) => {
@@ -23,6 +38,10 @@ class ChatPage extends Component {
     }
 
     componentDidMount() {
+        let token = localStorage.getItem("username")
+        if(!token){
+            this.setState({popo: true})
+        }
         fetch("/api/room", {
             method: "GET"
         }).then((res) => {
@@ -34,15 +53,47 @@ class ChatPage extends Component {
         }).catch((err) => {
             console.log(err);
         });
+        this.setState({showModal: true})
+        Modal.setAppElement('#root')
+    }
+
+    handleInputChange = event => {
+        const { name, value } = event.target;
+        this.setState({
+          [name]: value
+        });
+    };
+
+    submitName = () => {
+        if(this.state.username){
+          localStorage.setItem("username", this.state.username.replace(/\s+/g, " ").trim())
+          this.setState({popo: false})
+        } else {
+          alert("nelson")
+        }
     }
 
     render() {
         return(
             <div>
                 <Nav handleSubmit={this.handleSubmit}/>
-               
-
-                
+                <Modal 
+                    isOpen={this.state.popo}
+                    style={customStyles}
+                    overlayClassName="Overlay"
+                >
+                    <div>
+                        <input 
+                            type="text"  
+                            placeholder="Username"
+                            value={this.state.username}
+                            onChange={this.handleInputChange}
+                            name="username"
+                            required
+                        />
+                        <button onClick={this.submitName}>Submit</button>
+                    </div>
+                </Modal>
                     <div>
                         {this.state.rooms.length > 0 ?
                         <Room rooms={this.state.rooms}/>
@@ -50,11 +101,6 @@ class ChatPage extends Component {
                         <div />
                         }
                     </div>
-                    
-                        
-                    
-                
-
             </div>
         );
     }
