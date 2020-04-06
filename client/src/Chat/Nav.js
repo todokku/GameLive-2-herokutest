@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class InputContainer extends Component {
+class Nav extends Component {
 
     constructor(props) {
         super(props);
@@ -11,10 +11,11 @@ class InputContainer extends Component {
 
     render() {
         return(
-            <form onSubmit={this.handleSubmit}>
-                
-                <button type="submit">Send</button>
-            </form>
+            <nav>
+                <form onSubmit={this.handleSubmit}>
+                    <button type="submit">Send</button>
+                </form>
+            </nav>
         )
     }
 
@@ -26,4 +27,4 @@ class InputContainer extends Component {
 
 }
 
-export default InputContainer;
+export default Nav;

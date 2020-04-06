@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import MessagesContainer from './MessagesContainer';
-import InputContainer from './InputContainer';
+import Room from './Room';
+import Nav from './Nav';
 import './ChatPage.css';
 import openSocket from 'socket.io-client';
 
@@ -39,20 +39,20 @@ class ChatPage extends Component {
     render() {
         return(
             <div>
-                
+                <Nav handleSubmit={this.handleSubmit}/>
                
 
                 <div>
                     <div className="messages-container">
                         {this.state.rooms.length > 0 ?
-                        <MessagesContainer messages={this.state.rooms}/>
+                        <Room rooms={this.state.rooms}/>
                         :
                         <div />
                         }
                     </div>
-                    <div>
-                        <InputContainer handleSubmit={this.handleSubmit}/>
-                    </div>
+                    
+                        
+                    
                 </div>
 
             </div>

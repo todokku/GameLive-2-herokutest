@@ -10,3 +10,54 @@ nav {
     background: black;
     text-align: center;
 }
+
+
+.room {
+    border: 1px solid black
+}
+
+.container_rooms{
+    display: grid;
+    grid-gap: 1em;
+}
+
+
+
+
+
+@media (max-width: 576px) {
+    .container_rooms{
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (min-width: 576px) {
+    .container_rooms{
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        grid-template-columns: 1fr;
+    }
+    
+}
+
+@media (min-width: 768px) {
+    .container_rooms{
+        margin-top: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
+        grid-template-columns: 1fr 1fr;
+    }
+    
+}
+
+@media (min-width: 1045px) {
+    .container_rooms{
+        width: 1000px;
+        margin: 50px auto;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
