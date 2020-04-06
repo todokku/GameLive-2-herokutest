@@ -106,9 +106,9 @@ class ChatPage extends Component {
     }
 
     handleSubmit = () => {
-
+        let token = localStorage.getItem("username")
         let reqBody = {
-            player: "pepe"
+            player: token
         }
 
         fetch("/api/room", {

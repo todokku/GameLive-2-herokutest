@@ -10,6 +10,11 @@ class Room extends Component {
                     return (
                         <div className="room" key={index}>
                             <div>Room {index + 1}</div>
+                            {room.players.map((player, index)=>{
+                                return (
+                                    <div key={index + 1}>{player}</div>
+                                )
+                            })}
                             <div>{room.code}</div>
                         </div>
                     );

@@ -7,6 +7,9 @@ const RoomSchema = new Schema({
         type: String,
         required: true
     },
+    players: {
+        type: Array
+    },
     timestamp: {
         type: Date,
         default: Date.now

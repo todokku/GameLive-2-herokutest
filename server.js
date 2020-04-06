@@ -48,7 +48,8 @@ app.post('/api/room', (req, res) => {
         roomCode += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     db.Room.create({
-        code: roomCode
+        code: roomCode,
+        players: [req.body.player]
     }).then((room) => {
         res.send(room).status(200);
     }).catch((err) => {
