@@ -9,27 +9,27 @@ class ChatPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            messages: [],
-            socket: openSocket("https://project-gamelive.herokuapp.com/")
+            rooms: [],
+            socket: openSocket("http://localhost:8080/")
         };
 
-        this.state.socket.on("new-message", (message) => {
-            let currentMessages = this.state.messages;
-            currentMessages.push(message);
+        this.state.socket.on("new-room", (room) => {
+            let currentRooms = this.state.rooms;
+            currentRooms.push(room);
             this.setState({
-                messages: currentMessages
+                room: currentRooms
             });
         });
     }
 
     componentDidMount() {
-        fetch("/api/message", {
+        fetch("/api/room", {
             method: "GET"
         }).then((res) => {
             return res.json();
         }).then((resJson) => {
             this.setState({
-                messages: resJson
+                rooms: resJson
             });
         }).catch((err) => {
             console.log(err);
@@ -44,8 +44,8 @@ class ChatPage extends Component {
 
                 <div>
                     <div className="messages-container">
-                        {this.state.messages.length > 0 ?
-                        <MessagesContainer messages={this.state.messages}/>
+                        {this.state.rooms.length > 0 ?
+                        <MessagesContainer messages={this.state.rooms}/>
                         :
                         <div />
                         }
@@ -65,7 +65,7 @@ class ChatPage extends Component {
             sender: "o si"
         }
 
-        fetch("/api/message", {
+        fetch("/api/room", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -74,7 +74,7 @@ class ChatPage extends Component {
         }).then((res) => {
             return res.json();
         }).then((resJson) => {
-            this.state.socket.emit("new-message", resJson);
+            this.state.socket.emit("new-room", resJson);
         }).catch((err) => {
             console.log(err);
         });

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 // Blueprint of what a message would look like in our DB.
-const MessageSchema = new Schema({
+const RoomSchema = new Schema({
     sender: {
         type: String,
         required: true
@@ -14,7 +14,7 @@ const MessageSchema = new Schema({
 });
 
 // Makes a model of the above schema.
-const Message = mongoose.model("Message", MessageSchema);
+const Room = mongoose.model("Room", RoomSchema);
 
 // Exporting the model so that it can be used in server.js and/or other files.
-module.exports = Message;
+module.exports = Room;

@@ -8,8 +8,8 @@ class MessagesContainer extends Component {
 
                 {this.props.messages.map((message, index) => {
                     return (
-                        <div key={"c" + index}>
-                            <div as="b">{message.sender}</div>
+                        <div key={index}>
+                            <div>{message.sender}</div>
                         </div>
                     );
                 })}

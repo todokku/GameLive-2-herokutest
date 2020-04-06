@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const Message = require('./models/message');
+const db = require('./models');
 const socket = require('socket.io');
 const path = require('path');
 
@@ -29,20 +29,20 @@ app.use((req, res, next) => {
 app.use(bodyParser.json());
 
 // GET all the previous messages
-app.get('/api/message', (req, res) => {
-    Message.find({}).exec((err, messages) => {
+app.get('/api/room', (req, res) => {
+    db.Room.find({}).exec((err, rooms) => {
         if(err) {
             res.send(err).status(500);
         } else {
-            res.send(messages).status(200);
+            res.send(rooms).status(200);
         }
     });
 });
 
 // POST a new message
-app.post('/api/message', (req, res) => {
-    Message.create(req.body).then((message) => {
-        res.send(message).status(200);
+app.post('/api/room', (req, res) => {
+    db.Room.create(req.body).then((room) => {
+        res.send(room).status(200);
     }).catch((err) => {
         console.log(err);
         res.send(err).status(500);
@@ -66,8 +66,8 @@ let io = socket(server);
 
 io.on("connection", (socket) => {
 
-    socket.on("new-message", (data) => {
-        io.sockets.emit("new-message", data);
+    socket.on("new-room", (data) => {
+        io.sockets.emit("new-room", data);
     });
 
 });
