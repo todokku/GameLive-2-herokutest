@@ -42,8 +42,8 @@ class ChatPage extends Component {
                 <Nav handleSubmit={this.handleSubmit}/>
                
 
-                <div>
-                    <div className="messages-container">
+                
+                    <div>
                         {this.state.rooms.length > 0 ?
                         <Room rooms={this.state.rooms}/>
                         :
@@ -53,7 +53,7 @@ class ChatPage extends Component {
                     
                         
                     
-                </div>
+                
 
             </div>
         );
@@ -62,7 +62,7 @@ class ChatPage extends Component {
     handleSubmit = () => {
 
         let reqBody = {
-            sender: "o si"
+            player: "pepe"
         }
 
         fetch("/api/room", {

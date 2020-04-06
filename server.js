@@ -41,7 +41,15 @@ app.get('/api/room', (req, res) => {
 
 // POST a new message
 app.post('/api/room', (req, res) => {
-    db.Room.create(req.body).then((room) => {
+    var roomCode = '';
+    var characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < 10; i++ ) {
+        roomCode += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    db.Room.create({
+        code: roomCode
+    }).then((room) => {
         res.send(room).status(200);
     }).catch((err) => {
         console.log(err);

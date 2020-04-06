@@ -10,7 +10,7 @@ class Room extends Component {
                     return (
                         <div className="room" key={index}>
                             <div>Room {index + 1}</div>
-                            <div>{room.sender}</div>
+                            <div>{room.code}</div>
                         </div>
                     );
                 })}

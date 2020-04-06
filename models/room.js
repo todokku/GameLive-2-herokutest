@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 // Blueprint of what a message would look like in our DB.
 const RoomSchema = new Schema({
-    sender: {
+    code: {
         type: String,
         required: true
     },
